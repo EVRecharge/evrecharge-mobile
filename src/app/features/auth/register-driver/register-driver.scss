@@ -1,0 +1,53 @@
+.evr-register-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  background: linear-gradient(135deg, #eafbf1 0%, #f5f8f6 60%, #fff3e6 100%);
+}
+
+.evr-register-card {
+  width: 100%;
+  max-width: 520px;
+  padding: 8px 16px 24px;
+}
+
+.evr-brand-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 0 8px;
+
+  h1 {
+    margin: 0;
+    font-size: 20px;
+  }
+}
+
+.evr-logo {
+  color: var(--evr-primary);
+}
+
+.evr-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 16px;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.evr-submit {
+  margin-top: 8px;
+  height: 44px;
+  width: 100%;
+}
+
+.evr-hint {
+  text-align: center;
+  font-size: 13px;
+  margin-top: 16px;
+  color: #5f6368;
+}

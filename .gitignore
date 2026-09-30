@@ -1,0 +1,40 @@
+# Angular
+/dist
+/www
+/tmp
+/out-tsc
+/bazel-out
+/node_modules
+/.angular
+npm-debug.log
+
+# IDEs
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# Android
+/android/.gradle
+/android/app/build
+/android/build
+/android/local.properties
+/android/.idea
+/android/**/*.iml
+/android/app/release
+*.keystore
+*.jks
+
+# iOS
+/ios/App/Pods
+/ios/App/build
+/ios/App/App.xcworkspace/xcuserdata
+/ios/App/App.xcodeproj/xcuserdata
+*.ipa
+
+# System
+.DS_Store
+Thumbs.db

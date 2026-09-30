@@ -1,0 +1,58 @@
+name: Build Android
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - run: npm ci
+
+      - name: Build the web bundle
+        run: npx ng build --configuration production
+
+      - name: Sync into the Android project
+        run: npx cap sync android
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      # Unsigned debug APK -- installable for direct/sideload testing. A real Play Store release
+      # (.aab) needs a signing keystore, which only the account holder can generate; see
+      # DEPLOYMENT.md for the exact remaining steps once that's available as a repo secret.
+      - name: Build debug APK
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: evrecharge-android-debug-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Publish to the distribution host
+        if: ${{ vars.MOBILE_DIST_HOST != '' }}
+        env:
+          DIST_HOST: ${{ vars.MOBILE_DIST_HOST }}
+          SSH_KEY: ${{ secrets.MOBILE_DIST_SSH_KEY }}
+        run: |
+          if [ -z "$SSH_KEY" ]; then
+            echo "No MOBILE_DIST_SSH_KEY secret set yet -- skipping upload."
+            exit 0
+          fi
+          install -m 600 /dev/null /tmp/dist_key
+          echo "$SSH_KEY" > /tmp/dist_key
+          scp -i /tmp/dist_key -o StrictHostKeyChecking=no \
+            android/app/build/outputs/apk/debug/app-debug.apk \
+            ubuntu@$DIST_HOST:/var/www/mobile-download/evrecharge-india.apk

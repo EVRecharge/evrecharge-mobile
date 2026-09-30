@@ -1,0 +1,38 @@
+name: Build iOS (unsigned)
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-ios:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - run: npm ci
+
+      - name: Build the web bundle
+        run: npx ng build --configuration production
+
+      - name: Sync into the iOS project
+        run: npx cap sync ios
+
+      - name: Install CocoaPods dependencies
+        working-directory: ios/App
+        run: pod install
+
+      # Compiles against the simulator SDK with signing disabled, purely to prove the native
+      # project builds -- a real device/App Store archive needs an Apple Developer signing
+      # certificate and provisioning profile, which only the account holder can generate; see
+      # DEPLOYMENT.md for the exact remaining steps once those are available as repo secrets.
+      - name: Build for the simulator (no code signing)
+        working-directory: ios/App
+        run: |
+          xcodebuild -workspace App.xcworkspace -scheme App \
+            -sdk iphonesimulator -configuration Release \
+            CODE_SIGNING_ALLOWED=NO build

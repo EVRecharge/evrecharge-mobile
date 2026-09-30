@@ -1,0 +1,218 @@
+<div class="evr-home">
+  <!-- ============ HEADER + HERO (unified dark panel) ============ -->
+  <section class="evr-hero-dark">
+    <div class="evr-hero-glow" aria-hidden="true"></div>
+
+    <header class="evr-header">
+      <div class="evr-header-inner">
+        <div class="evr-brand-block">
+          <div class="evr-brand">
+            <mat-icon>ev_station</mat-icon>
+            <span>EVRecharge <em>India</em></span>
+          </div>
+          <span class="evr-brand-tagline">Enterprise EV charging network</span>
+        </div>
+        <nav class="evr-nav">
+          <a href="#how-it-works">How it works</a>
+          <a href="#cities">Cities</a>
+          <a href="#partners">For Partners</a>
+        </nav>
+        <div class="evr-header-actions">
+          <span class="evr-network-status">
+            <span class="evr-status-dot"></span>
+            Network online
+          </span>
+          <a routerLink="/login" mat-stroked-button class="evr-login-link">Log in</a>
+          <a routerLink="/register/driver" mat-flat-button color="primary">Sign up free</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="evr-hero-inner">
+      <div class="evr-hero-copy">
+        <h1>Find a charger.<br /><span class="evr-headline-accent">Start charging.</span></h1>
+        <p>Enterprise-grade EV charging, from Mumbai to Manali &mdash; discovery to departure.</p>
+
+        <div class="evr-scan" role="status" aria-live="polite">
+          <span class="evr-scan-track"><span class="evr-scan-bar"></span></span>
+          <span class="evr-scan-label">Locating nearest compatible station&hellip;</span>
+        </div>
+
+        <div class="evr-hero-actions">
+          <a routerLink="/register/driver" mat-flat-button color="primary" class="evr-cta">
+            <mat-icon>bolt</mat-icon>
+            Find a charging station
+          </a>
+          <a routerLink="/register/provider" mat-stroked-button class="evr-cta-secondary">
+            Become a charging partner
+          </a>
+        </div>
+        <div class="evr-hero-trust">
+          <span><mat-icon inline>verified</mat-icon> Verified stations only</span>
+          <span><mat-icon inline>currency_rupee</mat-icon> Transparent pricing</span>
+          <span><mat-icon inline>support_agent</mat-icon> 24&times;7 support</span>
+        </div>
+      </div>
+
+      <div class="evr-hero-art">
+        <svg viewBox="0 0 420 360" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="evr-kiosk-art">
+          <defs>
+            <radialGradient id="kioskGlow" cx="50%" cy="45%" r="60%">
+              <stop offset="0%" stop-color="#1fd8a4" stop-opacity="0.35" />
+              <stop offset="100%" stop-color="#1fd8a4" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+          <circle cx="210" cy="170" r="170" fill="url(#kioskGlow)" />
+
+          <!-- kiosk body -->
+          <rect x="150" y="110" width="120" height="180" rx="18" fill="#0f1b22" stroke="#1fd8a4" stroke-width="2" />
+          <rect x="168" y="130" width="84" height="56" rx="8" fill="#132832" />
+          <text x="210" y="164" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="20" fill="#1fd8a4">EV</text>
+
+          <!-- status LEDs -->
+          <circle cx="182" cy="204" r="4" fill="#1fd8a4" />
+          <circle cx="198" cy="204" r="4" fill="#1fd8a4" opacity="0.5" />
+          <circle cx="214" cy="204" r="4" fill="#1fd8a4" opacity="0.5" />
+
+          <!-- cable -->
+          <path d="M150 250 C110 262, 80 280, 55 300" stroke="#1fd8a4" stroke-width="6" fill="none" stroke-linecap="round" />
+          <circle cx="55" cy="300" r="10" fill="#0f1b22" stroke="#1fd8a4" stroke-width="2" />
+
+          <!-- connector base -->
+          <rect x="176" y="290" width="68" height="14" rx="7" fill="#0f1b22" stroke="#1fd8a4" stroke-width="2" />
+        </svg>
+
+        <mat-card class="evr-quick-login">
+          <div class="evr-quick-login-tabs">
+            <button type="button" [class.evr-tab-active]="quickRole() === 'USER'" (click)="setQuickRole('USER')">
+              Driver
+            </button>
+            <button type="button" [class.evr-tab-active]="quickRole() === 'PROVIDER'" (click)="setQuickRole('PROVIDER')">
+              Provider
+            </button>
+          </div>
+
+          <form [formGroup]="quickForm" (ngSubmit)="quickLogin()" class="evr-quick-form">
+            <mat-form-field appearance="outline" class="evr-form-field">
+              <mat-label>Email</mat-label>
+              <input matInput type="email" formControlName="email" autocomplete="email" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="evr-form-field">
+              <mat-label>Password</mat-label>
+              <input matInput type="password" formControlName="password" autocomplete="current-password" />
+            </mat-form-field>
+
+            @if (quickError()) {
+              <div class="evr-quick-error">{{ quickError() }}</div>
+            }
+
+            <button mat-flat-button color="primary" type="submit" class="evr-quick-submit" [disabled]="quickLoading()">
+              @if (quickLoading()) {
+                <mat-spinner diameter="18"></mat-spinner>
+              } @else {
+                Log in
+              }
+            </button>
+          </form>
+          <p class="evr-quick-hint">New here? <a routerLink="/register/driver">Create an account</a></p>
+        </mat-card>
+      </div>
+    </div>
+
+    <div class="evr-hero-road" aria-hidden="true"></div>
+  </section>
+
+  <!-- ============ STATS ============ -->
+  <section class="evr-stats">
+    <div class="evr-stats-inner">
+      <div class="evr-stat">
+        <mat-icon>ev_station</mat-icon>
+        <strong>1,200+</strong>
+        <span>Charging points</span>
+      </div>
+      <div class="evr-stat">
+        <mat-icon>location_city</mat-icon>
+        <strong>60+</strong>
+        <span>Indian cities</span>
+      </div>
+      <div class="evr-stat">
+        <mat-icon>directions_car</mat-icon>
+        <strong>25,000+</strong>
+        <span>Registered drivers</span>
+      </div>
+      <div class="evr-stat">
+        <mat-icon>support_agent</mat-icon>
+        <strong>24&times;7</strong>
+        <span>Customer support</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section class="evr-how" id="how-it-works">
+    <div class="evr-container">
+      <h2>Charging made simple</h2>
+      <div class="evr-how-grid">
+        <div class="evr-how-card">
+          <div class="evr-how-icon"><mat-icon>travel_explore</mat-icon></div>
+          <h3>1. Find</h3>
+          <p>Search verified charging stations near you by city, rate, or charger type.</p>
+        </div>
+        <div class="evr-how-card">
+          <div class="evr-how-icon"><mat-icon>event_available</mat-icon></div>
+          <h3>2. Book</h3>
+          <p>Reserve a slot for the time you need &mdash; no waiting in line when you arrive.</p>
+        </div>
+        <div class="evr-how-card">
+          <div class="evr-how-icon"><mat-icon>bolt</mat-icon></div>
+          <h3>3. Charge &amp; go</h3>
+          <p>Plug in, charge up, and pay securely in rupees. Track every session in your history.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DUAL AUDIENCE ============ -->
+  <section class="evr-dual" id="partners">
+    <div class="evr-dual-inner">
+      <div class="evr-dual-card evr-dual-driver">
+        <mat-icon>directions_car</mat-icon>
+        <h3>Driving an EV?</h3>
+        <p>Locate nearby stations, compare rates, and book your charging slot in under a minute.</p>
+        <a routerLink="/register/driver" mat-flat-button color="primary">Sign up as a driver</a>
+      </div>
+      <div class="evr-dual-card evr-dual-provider">
+        <mat-icon>ev_station</mat-icon>
+        <h3>Own a charging station?</h3>
+        <p>List your station, set your own rates, and start earning from drivers across India.</p>
+        <a routerLink="/register/provider" mat-stroked-button>Register your station</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CITIES ============ -->
+  <section class="evr-cities" id="cities">
+    <div class="evr-container">
+      <h2>Live in these cities &mdash; and growing</h2>
+      <div class="evr-city-chips">
+        @for (city of cities; track city) {
+          <span class="evr-city-chip">
+            <mat-icon inline>place</mat-icon>
+            {{ city }}
+          </span>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="evr-footer">
+    <div class="evr-container evr-footer-inner">
+      <div class="evr-brand evr-footer-brand">
+        <mat-icon>ev_station</mat-icon>
+        <span>EVRecharge <em>India</em></span>
+      </div>
+      <p>&copy; 2026 EVRecharge India. All rights reserved.</p>
+    </div>
+  </footer>
+</div>
