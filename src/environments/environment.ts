@@ -8,6 +8,7 @@ export const environment = {
     booking: 'https://evrechargeindia.com/api/bookings',
     location: 'https://evrechargeindia.com/api/locations',
     payment: 'https://evrechargeindia.com/api/payments',
+    chatbot: 'https://evrechargeindia.com/api/chatbot',
   },
   googleMapsApiKey: 'AIzaSyC_d2XJrs7UlPHyN-iyUo95ksWK6oHkY4Y',
 };
