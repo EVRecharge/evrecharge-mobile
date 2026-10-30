@@ -62,6 +62,8 @@
             <map-marker
               #marker="mapMarker"
               [position]="{ lat: provider.latitude, lng: provider.longitude }"
+              [options]="stationMarker()"
+              [title]="provider.name"
               (mapClick)="selectProvider(provider, info, marker)"
             ></map-marker>
           }
